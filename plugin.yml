@@ -1,0 +1,10 @@
+name: Wild
+main: SamyR0\Main
+version: 0.1_beta
+api: [1.0.0,2.0.0, 3.0.0-ALPHA1, 3.0.0-ALPHA2, 3.0.0-ALPHA3, 3.0.0-ALPHA4, 3.0.0-ALPHA5]
+author: SamyR0
+website: https://github.com/SamyR0
+commands:
+ wild:
+  usage: /wild 
+  description: Teleports you in a random place!
