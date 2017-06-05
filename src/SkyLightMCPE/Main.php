@@ -1,6 +1,6 @@
 <?php
 
-namespace SamyR0;
+namespace SkyLightMCPE\Wild;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
