@@ -1,27 +1,20 @@
 <?php
 declare(strict_types=1);
+
 namespace SkyLightMCPE;
 
-use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\level\format\ChunkException;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
-use pocketmine\utils\TextFormat as C;
-use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase{
-    
+
     public $iswildin = [];
-    
-    public function onEnable(){
-              $this->getLogger()->info(C::GREEN . "Wild enabled!");
-    }
-    
-    public function onDisable(){
-              $this->getLogger()->info(C::RED . "Wild disabled!");
-    }
-    
+
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool{
         if(strtolower($cmd->getName()) !== "wild") return false;
         if(!$sender instanceof Player){
@@ -29,21 +22,15 @@ class Main extends PluginBase{
             return false;
         }
         if(!$sender->hasPermission("wild.command")){
-            $sender->sendMessage(C::RED . "You don't have permission to use this command.");
+            $sender->sendMessage(TextFormat::RED . "You don't have permission to use this command.");
             return false;
         }
-           array_push($this->iswildin, $sender->getName());
-           $sender->teleport(new Vector3(rand(1, 999), 128, rand(1, 999)));
-           $sender->sendMessage(C::RED . "Teleporting...");
-           $sender->sendMessage(C::BLUE . "If you have been teleported to air you wont take any fall damage!");
-           return true;
-     }
-    public function onDamage(EntityDamageEvent $e){
-        $p = $e->getEntity();
-        if(!$p instanceof Player) return;
-        if(($key = array_search($p->getName(), $this->iswildin)) !== false){
-            unset($this->iswildin[$key]);
-            $e->setCancelled();
-        }
+        array_push($this->iswildin, $sender->getName());
+        $x = mt_rand(-999,999);
+        $z = mt_rand(-999,999);
+        $sender->getLevel()->loadChunk($x, $z, true);
+        $sender->teleport(new Vector3($x, $sender->getLevel()->getHighestBlockAt($x, $z) + 2, $z));
+        $sender->sendMessage(TextFormat::RED . "Teleporting...");
+        return true;
     }
 }
