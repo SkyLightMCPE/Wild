@@ -1,8 +1,10 @@
 name: Wild
 main: SkyLightMCPE\Main
-version: 0.1_beta
-api: [1.0.0,2.0.0, 3.0.0-ALPHA1, 3.0.0-ALPHA2, 3.0.0-ALPHA3, 3.0.0-ALPHA4, 3.0.0-ALPHA5]
-author: SkyLightMCPE
+version: 1.0.0
+api: [3.0.0-ALPHA11, 3.0.0-ALPAH12]
+author: 
+- SkyLightMCPE
+- Unickorn
 website: https://github.com/SkyLightMCPE
 commands:
  wild:
