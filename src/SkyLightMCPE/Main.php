@@ -28,7 +28,7 @@ class Main extends PluginBase{
             $sender->sendMessage("Use this command in game.");
             return false;
         }
-        if(!$sender->hasPermission("wild.command"){
+        if(!$sender->hasPermission("wild.command")){
             $sender->sendMessage(C::RED . "You don't have permission to use this command.");
             return false;
         }
@@ -36,11 +36,12 @@ class Main extends PluginBase{
            $sender->teleport(new Vector3(rand(1, 999), 128, rand(1, 999)));
            $sender->sendMessage(C::RED . "Teleporting...");
            $sender->sendMessage(C::BLUE . "If you have been teleported to air you wont take any fall damage!");
+           return true;
      }
     public function onDamage(EntityDamageEvent $e){
-        $e = $e->getEntity();
-        if(!$e instanceof Player) return;
-        if(($key = array_search($e->getName(), $this->iswildin)) !== false){
+        $p = $e->getEntity();
+        if(!$p instanceof Player) return;
+        if(($key = array_search($p->getName(), $this->iswildin)) !== false){
             unset($this->iswildin[$key]);
             $e->setCancelled();
         }
